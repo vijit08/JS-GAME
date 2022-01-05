@@ -69,7 +69,7 @@ function timer() {
   // Update the count every 1 second
   time = setInterval(function () {
     seconds++;
-    if (seconds === 60) {
+    if (seconds === 360) {
       minutes++;
       seconds = 0;
       gameover();
@@ -124,6 +124,13 @@ function dis() {
   radio_three.checked = false;
 }
 
+function winGame(array) {
+  if (matched.length === array.length) {
+    stopTime();
+    window.alert("YOU WIN!");
+  }
+}
+
 Show.addEventListener("click", show);
 startGame(Two_Cards);
 //=============================================TWO CARD SERIES==========================================================================
@@ -138,7 +145,7 @@ function fliptwocard() {
         opened[1].parentElement.classList.add("match");
         matched.push(...opened);
         document.body.style.pointerEvents = "auto";
-        winGame();
+        winGame(Two_Cards);
         opened = [];
       }, 600);
     } 
@@ -151,14 +158,7 @@ function fliptwocard() {
       }, 700);
     }
   }
-
-  function winGame() {
-    if (matched.length === Two_Cards.length) {
-      stopTime();
-      window.alert("YOU WIN!");
-    }
-  }
-
+  
   deck.addEventListener("click", function (evt) {
     if (evt.target.nodeName === "LI") {
       if (timeStart === false) {
@@ -199,7 +199,7 @@ function flipthreecard() {
       opened[2].parentElement.classList.add("match");
       matched.push(...opened);
       document.body.style.pointerEvents = "auto";
-      winGame();
+      winGame(Three_Cards);
       opened = [];
     } 
     else if (opened.length === 3 && (opened[0].src != opened[1].src) != opened[2].src) {
@@ -218,13 +218,6 @@ function flipthreecard() {
         document.body.style.pointerEvents = "auto";
         opened = [];
       }, 800);
-    }
-  }
-
-  function winGame() {
-    if (matched.length === Three_Cards.length) {
-      stopTime();
-      window.alert("YOU WIN!");
     }
   }
 
@@ -293,7 +286,7 @@ function flipfourcard() {
       opened[3].parentElement.classList.add("match");
       matched.push(...opened);
       document.body.style.pointerEvents = "auto";
-      winGame();
+      winGame(Four_Cards);
       opened = [];
     } 
     else if (opened.length === 4 && ((opened[0].src != opened[1].src) != opened[2].src) != opened[3].src) {
@@ -306,13 +299,6 @@ function flipfourcard() {
         document.body.style.pointerEvents = "auto";
         opened = [];
       }, 800);
-    }
-  }
-
-  function winGame() {
-    if (matched.length === Four_Cards.length) {
-      stopTime();
-      window.alert("YOU WIN!");
     }
   }
 
@@ -339,11 +325,30 @@ function flipfourcard() {
   });
 }
 
+function check() {
+  radio_two.disabled = true;
+  radio_three.disabled = true;
+  radio_one.disabled = true;
+  Show.disabled = false;
+  label_one.onclick = false;
+  label_two.onclick = false;
+  label_three.onclick = false;
+  removeCard();
+}
+
 /*THIS FUNCTION IS USED TO GENRATE 2 PAIR GAME*/
 /*===================================================================*/
+if (radio_one.checked == true) {
+  TwoCard();
+}
+else if(radio_two.checked == true) {
+  ThreeCard();
+}
+else if(radio_three.checked == true) {
+  FourCard();
+}
+
 function TwoCard() {
-  if (radio_one.checked == true) {
-    removeCard();
     startGame(Two_Cards);
     fliptwocard();
     radio_one.addEventListener("click", startGame);
@@ -351,50 +356,25 @@ function TwoCard() {
     reset.addEventListener("click", removeCard);
     reset.addEventListener("click", reload);
     reset.addEventListener("click", resetEverything);
-    radio_two.disabled = true;
-    radio_three.disabled = true;
-    radio_one.disabled = true;
-    Show.disabled = false;
-    label_one.onclick = false;
-    label_two.onclick = false;
-    label_three.onclick = false;
-  }
+    check();
 }
 
 function ThreeCard() {
-  if (radio_two.checked == true) {
-    removeCard();
     radio_two.addEventListener("click", removeCard);
     startGame(Three_Cards);
     flipthreecard();
     radio_two.addEventListener("click", startGame);
     radio_two.addEventListener("click", flipthreecard);
     reset.addEventListener("click", resetEverything);
-    radio_one.disabled = true;
-    radio_two.disabled = true;
-    radio_three.disabled = true;
-    Show.disabled = false;
-    label_two.onclick = false;
-    label_one.onclick = false;
-    label_three.onclick = false;
-  }
+    check();
 }
 
 function FourCard() {
-  if (radio_three.checked == true) {
-    removeCard();
     radio_three.addEventListener("click", removeCard);
     startGame(Four_Cards);
     flipfourcard();
     radio_three.addEventListener("click", startGame);
     radio_three.addEventListener("click", flipfourcard);
     reset.addEventListener("click", resetEverything);
-    radio_two.disabled = true;
-    radio_one.disabled = true;
-    radio_three.disabled = true;
-    Show.disabled = false;
-    label_one.onclick = false;
-    label_two.onclick = false;
-    label_three.onclick = false;
-  }
+    check();
 }
