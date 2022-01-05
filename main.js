@@ -333,7 +333,6 @@ function check() {
   label_one.onclick = false;
   label_two.onclick = false;
   label_three.onclick = false;
-  removeCard();
 }
 
 /*THIS FUNCTION IS USED TO GENRATE 2 PAIR GAME*/
@@ -349,6 +348,7 @@ else if(radio_three.checked == true) {
 }
 
 function TwoCard() {
+    removeCard();
     startGame(Two_Cards);
     fliptwocard();
     radio_one.addEventListener("click", startGame);
@@ -360,6 +360,7 @@ function TwoCard() {
 }
 
 function ThreeCard() {
+    removeCard();
     radio_two.addEventListener("click", removeCard);
     startGame(Three_Cards);
     flipthreecard();
@@ -370,6 +371,7 @@ function ThreeCard() {
 }
 
 function FourCard() {
+    removeCard();
     radio_three.addEventListener("click", removeCard);
     startGame(Four_Cards);
     flipfourcard();
