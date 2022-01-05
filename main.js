@@ -69,7 +69,7 @@ function timer() {
   // Update the count every 1 second
   time = setInterval(function () {
     seconds++;
-    if (seconds === 360) {
+    if (seconds === 60) {
       minutes++;
       seconds = 0;
       gameover();
